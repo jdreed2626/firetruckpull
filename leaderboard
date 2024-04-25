@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firetruck Pull Leaderboard</title>
+<style>
+  body { font-family: Arial, sans-serif; display: flex; justify-content: center; padding: 20px; }
+  .column { flex: 1; padding: 10px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+  th { background-color: #f2f2f2; }
+</style>
+</head>
+<body>
+<div class="column">
+  <h2>Fastest Pull</h2>
+  <table id="fastestPull">
+    <tr>
+      <th>Team Name</th>
+      <th>Time</th>
+    </tr>
+  </table>
+</div>
+<div class="column">
+  <h2>Lowest Combined Weight</h2>
+  <table id="lowestWeight">
+    <tr>
+      <th>Team Name</th>
+      <th>Number of Pullers</th>
+      <th>Weight</th>
+    </tr>
+  </table>
+</div>
+
+<script>
+async function fetchAirtableData() {
+  const apiKey = 'patAqC93GKyxl64MQ.d0033540aa4878bc170b2e677d641e8bbaf8dfb3e2e747844f25d7bb4da2202b';
+  const baseId = 'app5Ks6BwwChG5LXE';
+  const fastestPullUrl = `https://api.airtable.com/v0/${baseId}/Fastest%20Pull?api_key=${apiKey}`;
+  const lowestWeightUrl = `https://api.airtable.com/v0/${baseId}/Lowest%20Combined%20Weight?api_key=${apiKey}`;
+
+  // Fetch Fastest Pull
+  const resp1 = await fetch(fastestPullUrl);
+  const data1 = await resp1.json();
+  const table1 = document.getElementById('fastestPull');
+  data1.records.forEach(record => {
+    let row = table1.insertRow(-1);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    cell1.innerHTML = record.fields['Team Name'];
+    cell2.innerHTML = record.fields['Time'];
+  });
+
+  // Fetch Lowest Combined Weight
+  const resp2 = await fetch(lowestWeightUrl);
+  const data2 = await resp2.json();
+  const table2 = document.getElementById('lowestWeight');
+  data2.records.forEach(record => {
+    let row = table2.insertRow(-1);
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    let cell3 = row.insertCell(2);
+    cell1.innerHTML = record.fields['Team Name'];
+    cell2.innerHTML = record.fields['Number of Pullers'];
+    cell3.innerHTML = record.fields['Weight'];
+  });
+}
+
+fetchAirtableData();
+</script>
+</body>
+</html>
