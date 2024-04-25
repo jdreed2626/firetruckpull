@@ -35,7 +35,7 @@
 
 <script>
 async function fetchAirtableData() {
-  const apiKey = 'patAqC93GKyxl64MQ.d0033540aa4878bc170b2e677d641e8bbaf8dfb3e2e747844f25d7bb4da2202b';
+  const apiKey = '';
   const baseId = 'app5Ks6BwwChG5LXE';
   const fastestPullUrl = `https://api.airtable.com/v0/${baseId}/Fastest%20Pull?api_key=${apiKey}`;
   const lowestWeightUrl = `https://api.airtable.com/v0/${baseId}/Lowest%20Combined%20Weight?api_key=${apiKey}`;
